@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Animal
-from .serializers import AnimalSerializer
+from .models import Animal,Admin,Customer,ShoppingCart,Order,OrderItem
+from .serializers import AnimalSerializer,AdminSerializer,CustomerSerializer,ShoppingCartSerializer,OrderSerializer,OrderItemSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet 
@@ -11,6 +11,36 @@ class AnimalAPIView(APIView):
         data = Animal.objects.all()
         serializer = AnimalSerializer(data, many=True)
         return Response(serializer.data)
+class AnimalViewSet(ModelViewSet):
+    serializer_class = AnimalSerializer
+    def get_queryset(self):
+        return Animal.objects.all()
+
+class AdminAPIView(APIView):
+    def get(self, *args,**kwargs):
+        data = Admin.objects.all()
+        serializer = AdminSerializer(data, many=True)
+        return Response(serializer.data)
+class CustomerAPIView(APIView):
+    def get(self, *args,**kwargs):
+        data = Customer.objects.all()
+        serializer = CustomerSerializer(data, many=True)
+        return Response(serializer.data)
+
+class OrderAPIView(APIView):
+    def get(self, *args,**kwargs):
+        data = Order.objects.all()
+        serializer = OrderSerializer(data, many=True)
+        return Response(serializer.data)
+    
+class OrderItemAPIView(APIView):
+    def get(self, *args,**kwargs):
+        data = OrderItem.objects.all()
+        serializer = OrderItemSerializer(data, many=True)
+        return Response(serializer.data)
+
+
+
 """ 
     def post(self, request):
         serializer = AnimalSerializer(data=request.data)

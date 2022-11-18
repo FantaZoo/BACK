@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         # 'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb+srv://LucieB:Vedterg55@cluster0.3ipdlcg.mongodb.net/?retryWrites=true&w=majority',
+            'host': 'mongodb+srv://LionelAB:12345@cluster0.sc8k0kw.mongodb.net/?retryWrites=true&w=majority',
             'name': 'fantazoo',
             'authMechanism': 'SCRAM-SHA-1',
         }
