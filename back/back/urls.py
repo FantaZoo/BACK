@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from fantazoo.views import AnimalViewSet
+
+from fantazoo.views import AnimalViewSet,AdminViewSet,CustomerViewSet,ShoppingCartViewSet,OrderViewSet,OrderItemViewSet
 from fantazoo.views import AnimalAPIView,AdminAPIView,CustomerAPIView,OrderAPIView,OrderItemAPIView
 from rest_framework import routers
 
 router=routers.SimpleRouter()
 router.register('animals',AnimalViewSet,basename='animals')
+router.register('admins',AdminViewSet,basename='admins')
+router.register('customers',CustomerViewSet,basename='customers')
+router.register('orders',OrderViewSet,basename='orders')
+router.register('orderitems',OrderItemViewSet,basename='orderitems')
+router.register('shoppingcarts',ShoppingCartViewSet,basename='shoppingcarts')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

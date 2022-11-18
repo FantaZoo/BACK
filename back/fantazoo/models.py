@@ -51,13 +51,13 @@ class ShoppingCart(models.Model):
     
     def get_price(self):
         return self.product.price * self.product_quantity
+    
     def __str__(self):
         return self.product.description
 
 
 class Order(models.Model):
     userID = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    address=models.CharField(Customer.address,max_length=50)
     product = models.ForeignKey(Animal, on_delete=models.CASCADE)
     product_quantity = models.IntegerField()
     total_price = models.FloatField(null=False,blank=False)
@@ -65,6 +65,7 @@ class Order(models.Model):
     
     def get_order_address(self):
         return self.userID.address
+    
     
     def __str__(self):
         return self.product.description
@@ -74,6 +75,10 @@ class OrderItem(models.Model):
     product=models.ForeignKey(Animal,on_delete=models.CASCADE)
     price = models.FloatField(null=False,default=0.0)
     quantity = models.IntegerField(null=False,default=0)
+    
+    def get_price_item(self):
+        return self.product.price
+    
     
     def __str__(self):
         return '{}{}'.format(self.order.id)
