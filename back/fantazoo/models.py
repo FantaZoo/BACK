@@ -18,4 +18,4 @@ class Animal(models.Model):
     Animaltype = models.CharField(max_length=50)
     image = models.CharField(max_length=200)
     diet = models.CharField(max_length=200)
-    
+
