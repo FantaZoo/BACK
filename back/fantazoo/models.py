@@ -32,6 +32,7 @@ class Animal(models.Model):
     STATUT=[('A VENDRE','A VENDRE'),('VENDU','VENDU'),('EN STOCK','EN STOCK')]
     TYPE=[('REPTILE','REPTILE'),('MAMMIFERE','MAMMIFERE'),('POISSON','POISSON'),('INSECTE','INSECTE'),('ARACHNIDE','ARACHNIDE'),('ND','Non défini')]
     DIET=[('OMNIVORE','OMNIVORE'),('HERBIVORE','HERBIVORE'),('CARNIVORE','CARNIVORE'),('AUTRE','AUTRE'),('ND','Non défini')]
+    animal_name = models.CharField(max_length=50,default='ND')
     description = models.CharField(max_length=200)
     price=models.FloatField(null=False, default=0)
     animal_status=models.CharField(max_length=20,default='EN STOCK',choices=STATUT)
