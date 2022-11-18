@@ -11,6 +11,7 @@ class AnimalAPIView(APIView):
         data = Animal.objects.all()
         serializer = AnimalSerializer(data, many=True)
         return Response(serializer.data)
+    
 class AnimalViewSet(ModelViewSet):
     serializer_class = AnimalSerializer
     def get_queryset(self):
@@ -21,12 +22,20 @@ class AdminAPIView(APIView):
         data = Admin.objects.all()
         serializer = AdminSerializer(data, many=True)
         return Response(serializer.data)
+class AdminViewSet(ModelViewSet):
+    serializer_class = AdminSerializer
+    def get_queryset(self):
+        return Admin.objects.all()
+    
 class CustomerAPIView(APIView):
     def get(self, *args,**kwargs):
         data = Customer.objects.all()
         serializer = CustomerSerializer(data, many=True)
         return Response(serializer.data)
-
+class CustomerViewSet(ModelViewSet):
+    serializer_class = CustomerSerializer
+    def get_queryset(self):
+        return Customer.objects.all()
 class OrderAPIView(APIView):
     def get(self, *args,**kwargs):
         data = Order.objects.all()

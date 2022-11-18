@@ -26,8 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/admins/',AdminAPIView.as_view()),
-    path('api/customers/',CustomerAPIView.as_view()),
-    path('api/orders/',OrderAPIView.as_view()),
-    path('api/order/{id}/orderitems/',OrderItemAPIView.as_view()),
+    
+    
 ]

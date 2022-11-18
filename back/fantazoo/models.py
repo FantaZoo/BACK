@@ -47,10 +47,12 @@ class ShoppingCart(models.Model):
     product = models.ForeignKey(Animal, on_delete=models.CASCADE)
     product_quantity = models.IntegerField(null=False,blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    price = models.FloatField(Animal.price)
     total = models.FloatField()
+    
+    def get_price(self):
+        return self.product.price * self.product_quantity
     def __str__(self):
-        return self.Animal.description
+        return self.product.description
 
 
 class Order(models.Model):
@@ -60,14 +62,18 @@ class Order(models.Model):
     product_quantity = models.IntegerField()
     total_price = models.FloatField(null=False,blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return self.Animal.description
     
-""" class OrderItem(models.Model):
+    def get_order_address(self):
+        return self.userID.address
+    
+    def __str__(self):
+        return self.product.description
+    
+class OrderItem(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE)
     product=models.ForeignKey(Animal,on_delete=models.CASCADE)
     price = models.FloatField(null=False,default=0.0)
     quantity = models.IntegerField(null=False,default=0)
     
     def __str__(self):
-        return '{}{}'.format(self.order.id) """
+        return '{}{}'.format(self.order.id)
