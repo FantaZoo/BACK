@@ -6,4 +6,9 @@ class AnimalSerializer(ModelSerializer):
         model = Animal
         fields = '__all__'
         
+    def create(self, validated_data):
+        validated_data['Animalstatus'] = 'EN STOCK'
+        instance= Animal.objects.create(**validated_data)
+        instance.save()
+        return instance
     
