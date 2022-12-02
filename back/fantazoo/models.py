@@ -4,18 +4,72 @@ import enum
 
 # Create your models here.
 
+class User(models.Model):
+    password = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=10)
+    address = models.CharField(max_length=50)
+    is_admin = models.BooleanField(default=False)
     
+    
+
+  
 class Animal(models.Model):
+    
     SEXE =[('M','Mâle'),('F','Femelle'),('ND','Non défini')]
-    SPECIES=[('Phoenix','Phoenix'),('Dragon','Dragon'),('Unicorn','Unicorn'),('Griffin','Griffin'),('Hippogriff','Hippogriff'),('Pegasus','Pegasus'),('Chimera','Chimera'),('Basilisk','Basilisk'),('Gorgon','Gorgon'),('ND','Non défini')]
     STATUT=[('A VENDRE','A VENDRE'),('VENDU','VENDU'),('EN STOCK','EN STOCK')]
+    TYPE=[('REPTILE','REPTILE'),('MAMMIFERE','MAMMIFERE'),('POISSON','POISSON'),('INSECTE','INSECTE'),('ARACHNIDE','ARACHNIDE'),('ND','Non défini')]
+    DIET=[('OMNIVORE','OMNIVORE'),('HERBIVORE','HERBIVORE'),('CARNIVORE','CARNIVORE'),('ND','Non défini')]
+    animal_name = models.CharField(max_length=50,default='ND')
     description = models.CharField(max_length=200)
-    price=models.FloatField()
-    Animalstatus=models.CharField(max_length=20,default='EN STOCK',choices=STATUT)
-    species=models.CharField(max_length=20,choices=SPECIES,default='ND')
+    price=models.FloatField(null=False, default=0)
+    animal_status=models.CharField(max_length=20,default='EN STOCK',choices=STATUT)
+    species=models.CharField(max_length=200)
     sexe=models.CharField(max_length=20,choices=SEXE,default='ND')
     age = models.IntegerField()
-    Animaltype = models.CharField(max_length=50)
+    animal_type = models.CharField(max_length=50,choices=TYPE,default='ND')
     image = models.CharField(max_length=200)
-    diet = models.CharField(max_length=200)
+    diet = models.CharField(max_length=200,choices=DIET,default='ND')
 
+class ShoppingCart(models.Model):
+    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    product_quantity = models.IntegerField(null=False,blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    total = models.FloatField()
+    
+    def get_price(self):
+        return self.product.price * self.product_quantity
+    
+    def __str__(self):
+        return self.product.description
+
+
+class Order(models.Model):
+    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    product_quantity = models.IntegerField()
+    total_price = models.FloatField(null=False,blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def get_order_address(self):
+        return self.userID.address
+    
+    
+    def __str__(self):
+        return self.product.description
+    
+class OrderItem(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    product=models.ForeignKey(Animal,on_delete=models.CASCADE)
+    price = models.FloatField(null=False,default=0.0)
+    quantity = models.IntegerField(null=False,default=0)
+    
+    def get_price_item(self):
+        return self.product.price
+    
+    
+    def __str__(self):
+        return '{}{}'.format(self.order.id)

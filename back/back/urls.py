@@ -16,12 +16,23 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path,include
-from fantazoo.views import AnimalAPIView
 
-""" router=routers.SimpleRouter()
-router.register('animals',AnimalAPIView) """
+from fantazoo.views import AnimalViewSet,ShoppingCartViewSet,OrderViewSet,OrderItemViewSet,UserViewSet
+from fantazoo.views import AnimalAPIView,UserAPIView,OrderAPIView,OrderItemAPIView
+from rest_framework import routers
+
+router=routers.SimpleRouter()
+router.register('animals',AnimalViewSet,basename='animals')
+router.register('users',UserViewSet,basename='users')
+router.register('orders',OrderViewSet,basename='orders')
+router.register('orderitems',OrderItemViewSet,basename='orderitems')
+router.register('shoppingcarts',ShoppingCartViewSet,basename='shoppingcarts')
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/',include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/animals/',AnimalAPIView.as_view()),
+    
+    
 ]
