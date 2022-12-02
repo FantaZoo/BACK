@@ -83,7 +83,7 @@ DATABASES = {
         # 'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'mongodb+srv://lionel:lionel@cluster0.nxldmip.mongodb.net/?retryWrites=true&w=majority',
-            'name': 'ShoppingCart',
+            'name': 'fantazoo',
             'authMechanism': 'SCRAM-SHA-1',
         }
     }
