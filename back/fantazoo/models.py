@@ -26,7 +26,7 @@ class Animal(models.Model):
     description = models.CharField(max_length=200)
     price=models.FloatField(null=False, default=0)
     animal_status=models.CharField(max_length=20,default='EN STOCK',choices=STATUT)
-    species=models.CharField(max_length=200)
+    species=models.CharField(max_length=200,default='ND')
     sexe=models.CharField(max_length=20,choices=SEXE,default='ND')
     age = models.IntegerField()
     animal_type = models.CharField(max_length=50,choices=TYPE,default='ND')
@@ -35,41 +35,15 @@ class Animal(models.Model):
 
 class ShoppingCart(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    product_quantity = models.IntegerField(null=False,blank=False)
+    productID = models.ForeignKey(Animal, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    total = models.FloatField()
-    
-    def get_price(self):
-        return self.product.price * self.product_quantity
-    
-    def __str__(self):
-        return self.product.description
+   
 
 
 class Order(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    product_quantity = models.IntegerField()
-    total_price = models.FloatField(null=False,blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+   
     def get_order_address(self):
         return self.userID.address
     
-    
-    def __str__(self):
-        return self.product.description
-    
-class OrderItem(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.CASCADE)
-    product=models.ForeignKey(Animal,on_delete=models.CASCADE)
-    price = models.FloatField(null=False,default=0.0)
-    quantity = models.IntegerField(null=False,default=0)
-    
-    def get_price_item(self):
-        return self.product.price
-    
-    
-    def __str__(self):
-        return '{}{}'.format(self.order.id)

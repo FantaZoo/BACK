@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Animal,User,ShoppingCart,Order,OrderItem
-from .serializers import AnimalSerializer,UserSerializer,ShoppingCartSerializer,OrderSerializer,OrderItemSerializer
+from .models import Animal,User,ShoppingCart,Order
+from .serializers import AnimalSerializer,UserSerializer,ShoppingCartSerializer,OrderSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet 
@@ -17,20 +17,7 @@ class AnimalViewSet(ModelViewSet):
     serializer_class = AnimalSerializer
     def get_queryset(self):
         return Animal.objects.all()
-######## SHOPPING CART ########
-
-    ###AJOUTER UN PRODUIT AU PANIER#####
-
-class AddToCartAPIView(APIView):
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        serializer = ShoppingCartSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
-    ###AFFICHER LE PANIER#####
+  ###AFFICHER LE PANIER#####
     
     
 class ShoppingCartAPIView(APIView):
@@ -64,13 +51,3 @@ class OrderViewSet(ModelViewSet):
     def get_queryset(self):
         return Order.objects.all()
     
-class OrderItemAPIView(APIView):
-    def get(self, *args,**kwargs):
-        data = OrderItem.objects.all()
-        serializer = OrderItemSerializer(data, many=True)
-        return Response(serializer.data)
-
-class OrderItemViewSet(ModelViewSet):
-    serializer_class = OrderItemSerializer
-    def get_queryset(self):
-        return OrderItem.objects.all()

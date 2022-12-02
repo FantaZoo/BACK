@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Animal,User,ShoppingCart,Order,OrderItem
+from .models import Animal,User,ShoppingCart,Order
 
 
 
@@ -7,10 +7,7 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-class OrderItemSerializer(ModelSerializer):
-    class Meta:
-        model = OrderItem
-        fields = '__all__'
+
 class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
