@@ -38,7 +38,11 @@ class UserAPIView(APIView):
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
     def get_queryset(self):
-        return User.objects.all()
+        queryset = User.objects.all()
+        email = self.request.GET.get('email', None)
+        if email and email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
     
 class OrderAPIView(APIView):
     def get(self, *args,**kwargs):
