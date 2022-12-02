@@ -19,8 +19,8 @@ class User(models.Model):
 class Animal(models.Model):
     
     SEXE =[('M','Mâle'),('F','Femelle'),('ND','Non défini')]
-    STATUT=[('A VENDRE','A VENDRE'),('VENDU','VENDU'),('EN STOCK','EN STOCK')]
-    TYPE=[('REPTILE','REPTILE'),('MAMMIFERE','MAMMIFERE'),('POISSON','POISSON'),('INSECTE','INSECTE'),('ARACHNIDE','ARACHNIDE'),('ND','Non défini')]
+    STATUT=[('A VENDRE','A VENDRE'),('VENDU','VENDU')]
+    TYPE=[('REPTILE','REPTILE'),('MAMMIFERE','MAMMIFERE'),('POISSON','POISSON'),('INSECTE','INSECTE'),('ARACHNIDE','ARACHNIDE'),('OISEAU','OISEAU'),('ND','Non défini')]
     DIET=[('OMNIVORE','OMNIVORE'),('HERBIVORE','HERBIVORE'),('CARNIVORE','CARNIVORE'),('ND','Non défini')]
     animal_name = models.CharField(max_length=50,default='ND')
     description = models.CharField(max_length=200)
@@ -39,10 +39,10 @@ class ShoppingCart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
    
 
-
 class Order(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    
    
     def get_order_address(self):
         return self.userID.address

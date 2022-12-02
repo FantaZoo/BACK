@@ -44,6 +44,20 @@ class UserViewSet(ModelViewSet):
             queryset = queryset.filter(email=email)
         return queryset
     
+class AddToCart(ModelViewSet):
+    serializer_class = ShoppingCartSerializer
+    queryset = ShoppingCart.objects.all()
+    def post(self,request):
+        productID = request.data('product_id')
+        userID = request.data('user_id')
+        if(productID and userID):
+            product = Animal.objects.get(id=productID)
+            user = User.objects.get(id=userID)
+            if(productID==product and user==userID):
+                cart = ShoppingCart.objects.create(productID=product, userID=user)
+                cart.save()
+                return Response({'status': 'success'})
+        
 class OrderAPIView(APIView):
     def get(self, *args,**kwargs):
         data = Order.objects.all()
@@ -54,4 +68,6 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     def get_queryset(self):
         return Order.objects.all()
+    
+
     
