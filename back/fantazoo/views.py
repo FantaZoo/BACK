@@ -28,7 +28,12 @@ class ShoppingCartAPIView(APIView):
 class ShoppingCartViewSet(ModelViewSet):
     serializer_class = ShoppingCartSerializer
     def get_queryset(self):
-        return ShoppingCart.objects.all()
+        queryset = ShoppingCart.objects.all()
+        userID = self.request.GET.get('userID', None)
+        if userID and userID is not None:
+            queryset = queryset.filter(userID=userID)
+        return queryset
+        # return ShoppingCart.objects.all()
 class UserAPIView(APIView):
     def get(self, *args,**kwargs):
         data = User.objects.all()
