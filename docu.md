@@ -13,9 +13,10 @@ Cours
         7. Fermeture/Désactivation du venv: deactivate
 
 Se placer dans le répertoire du projet
-source path/venv/Scripts/activate
 
-python3 manage.py makemigrations fantazoo
- python3 manage.py migrate
 
- python3 manage.py runserver fantazoo
+
+1)source path/venv/Scripts/activate
+2)python3 manage.py makemigrations fantazoo
+3)python3 manage.py migrate
+4)python3 manage.py runserver fantazoo
