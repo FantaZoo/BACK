@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 from fantazoo.views import AnimalViewSet,ShoppingCartViewSet,OrderViewSet,UserViewSet
-from fantazoo.views import AnimalAPIView,UserAPIView,OrderAPIView,ShoppingCartAPIView
+from fantazoo.views import AnimalAPIView,UserAPIView,OrderAPIView,ShoppingCartAPIView,AddToCart
 from rest_framework import routers
 
 router=routers.SimpleRouter()
@@ -26,6 +26,7 @@ router.register('animals',AnimalViewSet,basename='animals')
 router.register('users',UserViewSet,basename='users')
 router.register('orders',OrderViewSet,basename='orders')
 router.register('shoppingcarts',ShoppingCartViewSet,basename='shoppingcarts')
+router.register('addtocart',AddToCart,basename='addtocart')
 
 
 urlpatterns = [
