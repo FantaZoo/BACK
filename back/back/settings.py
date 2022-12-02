@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         # 'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb+srv://LionelAB:12345@cluster0.sc8k0kw.mongodb.net/?retryWrites=true&w=majority',
+            'host': 'mongodb+srv://lionel:lionel@cluster0.nxldmip.mongodb.net/?retryWrites=true&w=majority',
             'name': 'fantazoo',
             'authMechanism': 'SCRAM-SHA-1',
         }

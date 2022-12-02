@@ -1,17 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Animal,Admin,Customer,ShoppingCart,Order,OrderItem
+from .models import Animal,User,ShoppingCart,Order,OrderItem
 
 
 
-class AdminSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Admin
+        model = User
         fields = '__all__'
-class CustomerSerializer(ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = '__all__'
-
 class OrderItemSerializer(ModelSerializer):
     class Meta:
         model = OrderItem

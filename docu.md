@@ -14,3 +14,8 @@ Cours
 
 Se placer dans le répertoire du projet
 source path/venv/Scripts/activate
+
+python3 manage.py makemigrations fantazoo
+ python3 manage.py migrate
+
+ python3 manage.py runserver fantazoo

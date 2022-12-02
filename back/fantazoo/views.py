@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Animal,Admin,Customer,ShoppingCart,Order,OrderItem
-from .serializers import AnimalSerializer,AdminSerializer,CustomerSerializer,ShoppingCartSerializer,OrderSerializer,OrderItemSerializer
+from .models import Animal,User,ShoppingCart,Order,OrderItem
+from .serializers import AnimalSerializer,UserSerializer,ShoppingCartSerializer,OrderSerializer,OrderItemSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet 
@@ -17,6 +17,22 @@ class AnimalViewSet(ModelViewSet):
     serializer_class = AnimalSerializer
     def get_queryset(self):
         return Animal.objects.all()
+######## SHOPPING CART ########
+
+    ###AJOUTER UN PRODUIT AU PANIER#####
+
+class AddToCartAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        serializer = ShoppingCartSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    ###AFFICHER LE PANIER#####
+    
+    
 class ShoppingCartAPIView(APIView):
     def get(self, *args,**kwargs):
         data = ShoppingCart.objects.all()
@@ -26,28 +42,17 @@ class ShoppingCartViewSet(ModelViewSet):
     serializer_class = ShoppingCartSerializer
     def get_queryset(self):
         return ShoppingCart.objects.all()
-class AdminAPIView(APIView):
+class UserAPIView(APIView):
     def get(self, *args,**kwargs):
-        data = Admin.objects.all()
-        serializer = AdminSerializer(data, many=True)
+        data = User.objects.all()
+        serializer = UserSerializer(data, many=True)
         return Response(serializer.data)
     
-class AdminViewSet(ModelViewSet):
-    serializer_class = AdminSerializer
+class UserViewSet(ModelViewSet):
+    serializer_class = UserSerializer
     def get_queryset(self):
-        return Admin.objects.all()
+        return User.objects.all()
     
-class CustomerAPIView(APIView):
-    def get(self, *args,**kwargs):
-        data = Customer.objects.all()
-        serializer = CustomerSerializer(data, many=True)
-        return Response(serializer.data)
-
-
-class CustomerViewSet(ModelViewSet):
-    serializer_class = CustomerSerializer
-    def get_queryset(self):
-        return Customer.objects.all()
 class OrderAPIView(APIView):
     def get(self, *args,**kwargs):
         data = Order.objects.all()
@@ -69,13 +74,3 @@ class OrderItemViewSet(ModelViewSet):
     serializer_class = OrderItemSerializer
     def get_queryset(self):
         return OrderItem.objects.all()
-
-""" 
-    def post(self, request):
-        serializer = AnimalSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-# Create your views here.
- """
