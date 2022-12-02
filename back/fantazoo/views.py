@@ -61,18 +61,33 @@ class AddToCart(ModelViewSet):
             if(productID==product and user==userID):
                 cart = ShoppingCart.objects.create(productID=product, userID=user)
                 cart.save()
-                return Response({'status': 'success'})
+                return Response()
+            
+
         
 class OrderAPIView(APIView):
     def get(self, *args,**kwargs):
         data = Order.objects.all()
         serializer = OrderSerializer(data, many=True)
         return Response(serializer.data)
+    
 
 class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
+    queryset=Order.objects.all()
     def get_queryset(self):
         return Order.objects.all()
+    def post(self,request):
+        userID = request.data('user_id')
+        total_price = request.data('total_price')
+        total_quantity = request.data('total_quantity')
+        if(userID and total_price and total_quantity):
+            user = User.objects.get(id=userID)
+            if(user==userID):
+                order = Order.objects.create(userID=user, total_price=total_price, total_quantity=total_quantity)
+                order.save()
+                return Response({'status': 'success'})
     
+        
 
     
