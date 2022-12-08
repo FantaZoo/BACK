@@ -25,7 +25,7 @@ class Animal(models.Model):
     animal_name = models.CharField(max_length=50,default='ND')
     description = models.CharField(max_length=200)
     price=models.FloatField(null=False, default=0)
-    animal_status=models.CharField(max_length=20,default='EN STOCK',choices=STATUT)
+    animal_status=models.CharField(max_length=20,default='A VENDRE',choices=STATUT)
     species=models.CharField(max_length=200,default='ND')
     sexe=models.CharField(max_length=20,choices=SEXE,default='ND')
     age = models.IntegerField()
