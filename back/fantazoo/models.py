@@ -42,8 +42,9 @@ class ShoppingCart(models.Model):
 class Order(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    total_price =models.FloatField(null=False, default=0)
-    total_quantity=models.IntegerField(null=False, default=0)
+    total_price = models.FloatField(null=False, default=0)
+    total_article = models.IntegerField(null=False, default=0)
     
-   
+    def get_order_address(self):
+        return self.userID.address
     
