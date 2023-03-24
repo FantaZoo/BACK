@@ -1,0 +1,7 @@
+services:
+  app:
+    image: docker.io/benoitbelloc/fantazoo-back
+    build:
+      context: .
+    ports:
+      - 8000:8000
