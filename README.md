@@ -3,8 +3,8 @@
 
 
 <h5>Administration</h5>
-    Login Administrateur : admin2
-    Password Administrateur : admin2
+   
+   
 
 
 # Get strated
